@@ -15,7 +15,7 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->get('/entry/{uuid}', ['as' => 'entries.show', function ($uuid) {
+$router->get('/show/{uuid}', ['as' => 'entries.show', function ($uuid) {
     $entry = \App\Entry::where('uuid', $uuid)->where('expires_at', '>', \Carbon\Carbon::now())->first();
 
     if (!$entry) {
@@ -41,5 +41,21 @@ $router->post('/', ['as' => 'entries.create', function (\Illuminate\Http\Request
     $entry->expires_at = $expiresAt;
     $entry->save();
 
-    return response()->json(route('entries.show', ['uuid' => $entry->uuid]));
+    return response()->json([
+        'link' => route('entries.show', ['uuid' => $entry->uuid]),
+        'delete_link' => route('entries.destroy', ['uuidDelete' => $entry->uuid_delete]),
+        'expires_at' => $entry->expires_at,
+    ]);
+}]);
+
+$router->get('/delete/{uuidDelete}', ['as' => 'entries.destroy', function ($uuidDelete) {
+    $entry = \App\Entry::where('uuid_delete', $uuidDelete)->first();
+
+    if (!$entry) {
+        return response(null, 404);
+    }
+
+    $entry->delete();
+
+    return response()->json();
 }]);
