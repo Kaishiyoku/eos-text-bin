@@ -14,7 +14,7 @@ class EntryController extends Controller
 
         $entry->increment('number_of_views');
 
-        return $entry->content;
+        return response($entry->content)->header('Content-Type', 'text/plain');
     }
 
     public function store(\Illuminate\Http\Request $request)

@@ -21,13 +21,13 @@
         }
 
         a {
-            color: #e81c4f;
+            color: #db00b6;
         }
 
         h1,
         h2,
         strong {
-            color: #333;
+            color: #333333;
             font-weight: 400;
         }
 
@@ -38,7 +38,7 @@
 
         pre, code {
             overflow: scroll;
-            background: #f5f7f9;
+            background: #e6e6f1;
         }
 
         code {
@@ -48,8 +48,8 @@
 
         pre {
             padding: 1rem;
-            border-bottom: 1px solid #d8dee9;
-            border-left: 2px solid #69c;
+            color: #444444;
+            border-left: 2px solid #b8bedd;
         }
     </style>
 </head>
