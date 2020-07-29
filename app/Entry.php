@@ -6,6 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Ramsey\Uuid\Uuid;
 
+/**
+ * App\Entry
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entry newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entry newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entry query()
+ * @mixin \Eloquent
+ */
 class Entry extends Model
 {
     /**

@@ -15,47 +15,11 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->get('/show/{uuid}', ['as' => 'entries.show', function ($uuid) {
-    $entry = \App\Entry::where('uuid', $uuid)->where('expires_at', '>', \Carbon\Carbon::now())->first();
+$router->group(['middleware' => 'throttle:10,1,show'], function () use ($router) {
+    $router->get('/show/{uuid}', ['uses' => 'EntryController@show', 'as' => 'entries.show']);
+});
 
-    if (!$entry) {
-        return response(null, 404);
-    }
-
-    $entry->increment('number_of_views');
-
-    return $entry->content;
-}]);
-
-$router->post('/', ['as' => 'entries.create', function (\Illuminate\Http\Request $request) {
-    $data = $this->validate($request, [
-        'content' => ['required', 'string'],
-        'expires' => ['sometimes', 'integer', 'between:5,1440'],
-    ]);
-
-    $expiresAt = \Carbon\Carbon::now()->addMinutes($data['expires']
-        ?? env('DEFAULT_EXPIRE_DURATION_IN_MINUTES'));
-
-    $entry = new \App\Entry($data);
-    $entry->ip = $request->ip();
-    $entry->expires_at = $expiresAt;
-    $entry->save();
-
-    return response()->json([
-        'link' => route('entries.show', ['uuid' => $entry->uuid]),
-        'delete_link' => route('entries.destroy', ['uuidDelete' => $entry->uuid_delete]),
-        'expires_at' => $entry->expires_at,
-    ]);
-}]);
-
-$router->get('/delete/{uuidDelete}', ['as' => 'entries.destroy', function ($uuidDelete) {
-    $entry = \App\Entry::where('uuid_delete', $uuidDelete)->first();
-
-    if (!$entry) {
-        return response(null, 404);
-    }
-
-    $entry->delete();
-
-    return response()->json();
-}]);
+$router->group(['middleware' => 'throttle:5,1,action'], function () use ($router) {
+    $router->post('/', ['uses' => 'EntryController@store', 'as' => 'entries.store']);
+    $router->get('/delete/{uuidDelete}', ['uses' => 'EntryController@destroy', 'as' => 'entries.destroy']);
+});
