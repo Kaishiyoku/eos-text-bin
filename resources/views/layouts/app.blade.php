@@ -59,19 +59,25 @@
         }
 
         button {
+            transition: all linear .15s;
+        }
+
+        button {
             padding-left: .75rem;
             padding-right: .75rem;
             padding-top: .5rem;
             padding-bottom: .5rem;
             font-size: 1rem;
-            border: 2px solid #9598c1;
-            background-color: #acb0e0;
+            border: 2px solid #676974;
+            background-color: #ffffff;
             border-radius: .25rem;
             cursor: pointer;
         }
 
         button:hover {
-            background-color: #cbceee;
+            color: #dddddd;
+            border-color: #333333;
+            background-color: #333333;
         }
 
         form > div {
