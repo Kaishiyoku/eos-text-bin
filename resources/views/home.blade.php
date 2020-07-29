@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+    <p>
+        <a href="{{ route('entries.create') }}">Create entry</a>
+    </p>
+
     <h1>Usage</h1>
 
     <h2>Retrieve entry</h2>

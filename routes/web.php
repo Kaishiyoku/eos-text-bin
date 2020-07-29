@@ -23,3 +23,5 @@ $router->group(['middleware' => 'throttle:5,1,action'], function () use ($router
     $router->post('/', ['uses' => 'EntryController@store', 'as' => 'entries.store']);
     $router->get('/delete/{uuidDelete}', ['uses' => 'EntryController@destroy', 'as' => 'entries.destroy']);
 });
+
+$router->get('/create', ['uses' => 'EntryController@create', 'as' => 'entries.create']);

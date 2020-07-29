@@ -17,6 +17,11 @@ class EntryController extends Controller
         return response($entry->content)->header('Content-Type', 'text/plain');
     }
 
+    public function create()
+    {
+        return view('entry.create');
+    }
+
     public function store(\Illuminate\Http\Request $request)
     {
         $data = $this->validate($request, [
@@ -25,18 +30,26 @@ class EntryController extends Controller
         ]);
 
         $expiresAt = \Carbon\Carbon::now()->addMinutes($data['expires']
-            ?? env('DEFAULT_EXPIRE_DURATION_IN_MINUTES'));
+            ?: env('DEFAULT_EXPIRE_DURATION_IN_MINUTES'));
 
         $entry = new \App\Entry($data);
         $entry->ip = $request->ip();
         $entry->expires_at = $expiresAt;
         $entry->save();
 
-        return response()->json([
-            'link' => route('entries.show', ['uuid' => $entry->uuid]),
-            'delete_link' => route('entries.destroy', ['uuidDelete' => $entry->uuid_delete]),
-            'expires_at' => $entry->expires_at,
-        ]);
+        $link = route('entries.show', ['uuid' => $entry->uuid]);
+        $deleteLink = route('entries.destroy', ['uuidDelete' => $entry->uuid_delete]);
+        $expiresAt = $entry->expires_at;
+
+        if ($request->expectsJson()) {
+            return response()->json([
+                'link' => $link,
+                'delete_link' => $deleteLink,
+                'expires_at' => $expiresAt,
+            ]);
+        }
+
+        return view('entry.create_success', compact('link', 'deleteLink', 'expiresAt'));
     }
 
     public function destroy($uuidDelete)

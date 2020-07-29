@@ -18,10 +18,16 @@
             line-height: 1.5;
             padding: 4em 1rem;
             color: #566b78;
+            font-size: 16px;
         }
 
         a {
             color: #db00b6;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
         }
 
         h1,
@@ -50,6 +56,46 @@
             padding: 1rem;
             color: #444444;
             border-left: 2px solid #b8bedd;
+        }
+
+        button {
+            padding-left: .75rem;
+            padding-right: .75rem;
+            padding-top: .5rem;
+            padding-bottom: .5rem;
+            font-size: 1rem;
+            border: 2px solid #9598c1;
+            background-color: #acb0e0;
+            border-radius: .25rem;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #cbceee;
+        }
+
+        form > div {
+            margin-bottom: 1rem;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: .5rem;
+            border: 2px solid #676974;
+            border-radius: .25rem;
+        }
+
+        input:focus,
+        textarea:focus {
+            width: 100%;
+            border: 2px solid #333333;
+            border-radius: .25rem;
+        }
+
+        textarea {
+            min-height: 25rem;
+            resize: vertical;
         }
     </style>
 </head>
