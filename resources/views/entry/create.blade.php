@@ -3,7 +3,7 @@
 @section('content')
     <form action="{{ route('entries.store') }}" method="post">
         <div>
-            <label for="content">Content:</label>
+            <label for="content">Content (required):</label>
             <textarea name="content" id="content" required></textarea>
         </div>
 
