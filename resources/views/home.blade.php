@@ -1,100 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ env('APP_NAME', 'Lumen') }}</title>
+@extends('layouts.app')
 
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/languages/php.min.js"></script>
+@section('content')
+    <h1>Usage</h1>
 
-    <style>
-        @import 'https://fonts.googleapis.com/css?family=Roboto:300,400,500';
+    <h2>Retrieve entry</h2>
 
-        body {
-            margin: 0 auto;
-            max-width: 50rem;
-            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-            line-height: 1.5;
-            padding: 4em 1rem;
-            color: #566b78;
-        }
+    <p>Just follow the url you get when you create an entry.</p>
 
-        a {
-            color: #db00b6;
-        }
+    <h2>Create entry</h2>
 
-        h1,
-        h2,
-        strong {
-            color: #333333;
-            font-weight: 400;
-        }
+    <pre><code>curl -d "content=YOUR CONTENT&expires=60" -H "Content-Type: application/x-www-form-urlencoded" -H "Accept: application/json" -X POST {{ route('entries.store') }}
+    </code></pre>
 
-        h2 {
-            margin-top: 1rem;
-            padding-top: 1rem;
-        }
+    <pre><code>fetch('{{ route('entries.store') }}', {
+        method: 'POST',
+        headers: {
+            'Content-Type' => 'application/x-www-form-urlencoded',
+            'Accept' => 'application/json',
+        },
+        body: {
+            content: 'YOUR CONTENT', // your text content
+            expires: 60, // expiration in minutes, defaults to {{ env('DEFAULT_EXPIRE_DURATION_IN_MINUTES') }} if field not set
+        },
+    })
+    </code></pre>
 
-        pre, code {
-            overflow: scroll;
-            background: #e6e6f1;
-        }
+    <p>
+        Returns:
+    </p>
 
-        code {
-            padding: 2px 4px;
-            vertical-align: text-bottom;
-        }
+    <pre><code class="php">{
+        "link": "{{ route('entries.show', ['uuid' => '<KEY_UUID>']) }}",
+        "delete_link": {{ route('entries.destroy', ['uuidDelete' => '<KEY_UUID_DELETE>']) }}",
+        "expires_at": "2020-07-29T17:19:18.045340Z"
+    }
+    </code></pre>
 
-        pre {
-            padding: 1rem;
-            color: #444444;
-            border-left: 2px solid #b8bedd;
-        }
-    </style>
-</head>
-<body>
+    <p>The expires field is optional. A minimum of 5 and a maximum of 1440 minutes can be set. Default is {{ env('DEFAULT_EXPIRE_DURATION_IN_MINUTES') }} minutes until the entry expires.</p>
 
-<h1>Usage</h1>
+    <h2>Delete entry</h2>
 
-<h2>Retrieve entry</h2>
-
-<p>Just follow the url you get when you create an entry.</p>
-
-<h2>Create entry</h2>
-
-<pre><code>curl -d "content=YOUR CONTENT&expires=60" -H "Content-Type: application/x-www-form-urlencoded" -H "Accept: application/json" -X POST {{ route('entries.store') }}
-</code></pre>
-
-<pre><code>fetch('{{ route('entries.store') }}', {
-    method: 'POST',
-    headers: {
-        'Content-Type' => 'application/x-www-form-urlencoded',
-        'Accept' => 'application/json',
-    },
-    body: {
-        content: 'YOUR CONTENT', // your text content
-        expires: 60, // expiration in minutes, defaults to {{ env('DEFAULT_EXPIRE_DURATION_IN_MINUTES') }} if field not set
-    },
-})
-</code></pre>
-
-<p>
-    Returns:
-</p>
-
-<pre><code class="php">{
-    "link": "{{ route('entries.show', ['uuid' => '<KEY_UUID>']) }}",
-    "delete_link": {{ route('entries.destroy', ['uuidDelete' => '<KEY_UUID_DELETE>']) }}",
-    "expires_at": "2020-07-29T17:19:18.045340Z"
-}
-</code></pre>
-
-<p>The expires field is optional. A minimum of 5 and a maximum of 1440 minutes can be set. Default is {{ env('DEFAULT_EXPIRE_DURATION_IN_MINUTES') }} minutes until the entry expires.</p>
-
-<h2>Delete entry</h2>
-
-<p>When creating an entry you get a delete link. Just call this link as a GET request.</p>
-
-</body>
-</html>
+    <p>When creating an entry you get a delete link. Just call this link as a GET request.</p>
+@endsection
