@@ -12,7 +12,7 @@
 */
 
 $router->get('/', function () use ($router) {
-    return $router->app->version();
+    return view('home');
 });
 
 $router->group(['middleware' => 'throttle:10,1,show'], function () use ($router) {
