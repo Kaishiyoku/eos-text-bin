@@ -1,0 +1,182 @@
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+/* Typograhpy
+---------------------------------------------------------------------------- */
+h1 {
+    @apply text-4xl mb-5;
+}
+
+h2 {
+    @apply text-3xl mt-3 mb-2;
+}
+h2 > .headline-info {
+    @apply text-gray-600 text-2xl;
+}
+
+.link {
+    @apply text-pink-600 cursor-pointer;
+}
+.link:hover {
+    @apply underline;
+}
+
+/* Forms & input
+---------------------------------------------------------------------------- */
+.input:not(select) {
+    @apply py-2;
+}
+select.input {
+    padding-top: .5rem;
+    padding-bottom: .3rem;
+}
+select.input:not(:disabled) {
+    background: #ffffff !important;
+}
+.input {
+    @apply px-3 shadow border w-full text-gray-700 leading-tight transition-all duration-200;
+}
+.input:focus {
+    @apply outline-none shadow-outline-pink-600;
+}
+
+.input:read-only {
+    @apply bg-gray-200;
+}
+
+.has-error {
+    @apply border-red-600;
+}
+.invalid-feedback {
+    @apply text-red-600 text-xs mt-1;
+}
+
+.label {
+    @apply block text-gray-700 text-sm font-bold mb-2;
+}
+
+.label-required:after {
+    @apply text-gray-600;
+
+    content: ' *';
+}
+
+.label-checkbox {
+    @apply inline-flex items-center mt-3;
+}
+.checkbox {
+    @apply block h-5 w-5 bg-white appearance-none border border-gray-500 rounded outline-none transition-all duration-200 mr-2;
+}
+.checkbox:checked {
+    @apply bg-pink-600 border-pink-600;
+}
+.checkbox:checked:before {
+    @apply absolute h-5 w-5 text-white text-center;
+
+    margin-left: -1px;
+    margin-top: -1px;
+    line-height: 1.25rem;
+    font-family: "Font Awesome 5 Free";
+    font-size: .6rem;
+    font-weight: 900;
+    content: "\f00c";
+}
+.checkbox:focus {
+    @apply shadow-outline-pink-600;
+}
+
+/* Buttons
+---------------------------------------------------------------------------- */
+.btn {
+    @apply inline-block cursor-pointer shadow border transition-colors duration-200 py-2 px-4 rounded;
+}
+.btn:focus {
+    @apply outline-none;
+}
+
+.btn:disabled {
+    @apply bg-opacity-75 cursor-not-allowed;
+}
+
+.btn-primary {
+    @apply bg-pink-600 border-pink-700 text-white;
+}
+.btn-primary:hover:not(:disabled) {
+    @apply bg-black border-black;
+}
+.btn-primary:focus:not(:disabled) {
+    @apply shadow-outline-pink-600;
+}
+
+.btn-secondary {
+    @apply bg-teal-600 border-teal-700 text-white;
+}
+.btn-secondary:hover:not(:disabled) {
+    @apply bg-black;
+}
+.btn-secondary:focus:not(:disabled) {
+    @apply shadow-outline-teal-600;
+}
+
+.btn-black {
+    @apply bg-gray-800 border-gray-900 text-white;
+}
+.btn-black:hover:not(:disabled) {
+    @apply bg-black border-black;
+}
+.btn-black:focus:not(:disabled) {
+    @apply shadow-outline-gray-800;
+}
+
+.btn-outline-primary {
+    @apply text-pink-600 border border-pink-600;
+}
+.btn-outline-primary:hover:not(:disabled) {
+    @apply text-white bg-pink-600;
+}
+.btn-outline-primary:focus:not(:disabled) {
+    @apply shadow-outline-pink-600;
+}
+
+.btn-outline-black {
+    @apply text-black border border-black;
+}
+.btn-outline-black:hover:not(:disabled) {
+    @apply text-white bg-black;
+}
+.btn-outline-black:focus:not(:disabled) {
+    @apply shadow-outline-black;
+}
+
+/* Cards
+---------------------------------------------------------------------------- */
+.card {
+    @apply rounded overflow-hidden shadow-lg bg-white border border-gray-200;
+}
+
+/* Alerts
+---------------------------------------------------------------------------- */
+.alert {
+    @apply p-4 my-4 border-l-4 rounded break-words;
+}
+.alert-info {
+    @apply bg-blue-100 text-blue-800 border-blue-400;
+}
+.alert-success {
+    @apply bg-green-100 text-green-800 border-green-400;
+}
+.alert-warning {
+    @apply bg-yellow-100 text-yellow-800 border-yellow-400;
+}
+.alert-danger {
+    @apply bg-red-100 text-red-800 border-red-400;
+}
+
+/* Other
+---------------------------------------------------------------------------- */
+pre {
+    @apply overflow-auto px-4 py-2 bg-gray-200;
+}

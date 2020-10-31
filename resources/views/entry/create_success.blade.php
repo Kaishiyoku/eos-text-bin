@@ -1,15 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
-    <p>
-        Link: <a href="{{ $link }}">{{ $link }}</a>
-    </p>
+    <div class="card p-5">
+        <p class="mb-4">
+            Link: <a href="{{ $link }}" class="link">{{ $link }}</a>
+        </p>
 
-    <p>
-        Delete link: <a href="{{ $deleteLink }}">{{ $deleteLink }}</a>
-    </p>
+        <p class="mb-4">
+            Delete link: <a href="{{ $deleteLink }}" class="link">{{ $deleteLink }}</a>
+        </p>
 
-    <p>
-        Expires at: {{ $expiresAt }}
-    </p>
+        <p class="mb-4">
+            Expires at: {{ $expiresAt }}
+        </p>
+    </div>
 @endsection('content')
