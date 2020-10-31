@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Entry;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class EntryController extends Controller
 {
@@ -11,7 +12,7 @@ class EntryController extends Controller
         $entry = Entry::where('uuid', $uuid)->where('expires_at', '>', \Carbon\Carbon::now())->first();
 
         if (!$entry) {
-            return response(null, 404);
+            abort(404);
         }
 
         $entry->increment('number_of_views');
@@ -32,7 +33,7 @@ class EntryController extends Controller
         ]);
 
         $expiresAt = \Carbon\Carbon::now()->addMinutes($data['expires']
-            ?: env('DEFAULT_EXPIRE_DURATION_IN_MINUTES'));
+            ?? env('DEFAULT_EXPIRE_DURATION_IN_MINUTES'));
 
         $entry = new Entry($data);
         $entry->ip = $request->ip();
@@ -59,7 +60,7 @@ class EntryController extends Controller
         $entry = Entry::where('uuid_delete', $uuidDelete)->first();
 
         if (!$entry) {
-            return response(null, 404);
+            abort(404);
         }
 
         $entry->delete();

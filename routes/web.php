@@ -15,7 +15,7 @@ $router->get('/', function () use ($router) {
     return view('home');
 });
 
-$router->group(['middleware' => 'throttle:10,1,show'], function () use ($router) {
+$router->group([], function () use ($router) {
     $router->get('/show/{uuid}', ['uses' => 'EntryController@show', 'as' => 'entries.show']);
 });
 
