@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Entry;
+
 class EntryController extends Controller
 {
     public function show($uuid)
     {
-        $entry = \App\Entry::where('uuid', $uuid)->where('expires_at', '>', \Carbon\Carbon::now())->first();
+        $entry = Entry::where('uuid', $uuid)->where('expires_at', '>', \Carbon\Carbon::now())->first();
 
         if (!$entry) {
             return response(null, 404);
@@ -32,7 +34,7 @@ class EntryController extends Controller
         $expiresAt = \Carbon\Carbon::now()->addMinutes($data['expires']
             ?: env('DEFAULT_EXPIRE_DURATION_IN_MINUTES'));
 
-        $entry = new \App\Entry($data);
+        $entry = new Entry($data);
         $entry->ip = $request->ip();
         $entry->expires_at = $expiresAt;
         $entry->save();
@@ -54,7 +56,7 @@ class EntryController extends Controller
 
     public function destroy($uuidDelete)
     {
-        $entry = \App\Entry::where('uuid_delete', $uuidDelete)->first();
+        $entry = Entry::where('uuid_delete', $uuidDelete)->first();
 
         if (!$entry) {
             return response(null, 404);

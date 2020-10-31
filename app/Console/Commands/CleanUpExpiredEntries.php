@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Entry;
+use App\Models\Entry;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
